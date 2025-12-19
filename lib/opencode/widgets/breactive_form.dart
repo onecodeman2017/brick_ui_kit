@@ -218,7 +218,7 @@ class BFormTextField extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             GestureDetector(
-              onTap: (enabled ?? true) ? () async {
+              onTap: (enabled ?? true) != null ? () async {
                 final date = await showDatePicker(
                   context: context,
                   initialDate: initialValue != null ? DateTime.tryParse(initialValue!) ?? DateTime.now() : DateTime.now(),
