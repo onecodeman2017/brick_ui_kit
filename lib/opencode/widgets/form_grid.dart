@@ -29,29 +29,26 @@ class BFormGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BContainer(
-      padding: EdgeInsets.all(gutter ?? 16),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final screenWidth = constraints.maxWidth;
-          final actualColumns = _getColumnsForScreen(screenWidth);
-          
-          return GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: actualColumns,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-              childAspectRatio: 1.0,
-            ),
-            itemCount: fields.length,
-            itemBuilder: (context, index) {
-              return _buildFieldWidget(fields[index]);
-            },
-          );
-        },
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final screenWidth = constraints.maxWidth;
+        final actualColumns = _getColumnsForScreen(screenWidth);
+        
+        return GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: actualColumns,
+            crossAxisSpacing: gutter ?? 16,
+            mainAxisSpacing: gutter ?? 16,
+            childAspectRatio: 1.0,
+          ),
+          itemCount: fields.length,
+          itemBuilder: (context, index) {
+            return _buildFieldWidget(fields[index]);
+          },
+        );
+      },
     );
   }
 
@@ -84,277 +81,281 @@ class BFormGrid extends StatelessWidget {
   }
 
   Widget _buildTextField(config) {
-    // TODO: Implement BReactiveTextField
     return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            config.label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text(config.placeholder ?? ''),
-        ],
+      margin: const EdgeInsets.all(8),
+      child: H5Field(
+        label: config.label,
+        hintText: config.placeholder,
+        initialValue: config.initialValue,
+        required: config.required,
+        enabled: config.enabled,
+        maxLength: config.maxLength,
+        keyboardType: config.keyboardType,
+        validator: (value) {
+          if (config.required == true && (value == null || value!.isEmpty)) {
+            return '${config.label} is required';
+          }
+          return null;
+        },
+        onChanged: (value) {
+          // Handle field value change
+        },
       ),
     );
   }
 
   Widget _buildTextArea(config) {
-    // TODO: Implement BReactiveTextArea
     return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            config.label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text(config.placeholder ?? ''),
-        ],
+      margin: const EdgeInsets.all(8),
+      child: H5Field(
+        label: config.label,
+        hintText: config.placeholder,
+        initialValue: config.initialValue,
+        required: config.required,
+        enabled: config.enabled,
+        maxLength: config.maxLength,
+        maxLines: config.maxLines ?? 3,
+        validator: (value) {
+          if (config.required == true && (value == null || value!.isEmpty)) {
+            return '${config.label} is required';
+          }
+          return null;
+        },
+        onChanged: (value) {
+          // Handle field value change
+        },
       ),
     );
   }
 
   Widget _buildDropdown(config) {
-    // TODO: Implement BReactiveDropdown
     return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            config.label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text('Dropdown: ${config.options.length} options'),
-        ],
+      margin: const EdgeInsets.all(8),
+      child: H5Dropdown(
+        label: config.label,
+        options: config.options,
+        initialValue: config.initialValue,
+        required: config.required,
+        enabled: config.enabled,
+        validator: (value) {
+          if (config.required == true && (value == null || value!.isEmpty)) {
+            return '${config.label} is required';
+          }
+          return null;
+        },
+        onChanged: (value) {
+          // Handle field value change
+        },
       ),
     );
   }
 
   Widget _buildCheckbox(config) {
-    // TODO: Implement BReactiveCheckbox
     return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            config.label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text('Checkbox field'),
-        ],
+      margin: const EdgeInsets.all(8),
+      child: H5Checkbox(
+        label: config.label,
+        initialValue: config.initialValue ?? false,
+        enabled: config.enabled,
+        onChanged: (value) {
+          // Handle field value change
+        },
       ),
     );
   }
 
   Widget _buildRadioGroup(config) {
-    // TODO: Implement BReactiveRadioGroup
     return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            config.label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text('Radio group: ${config.options.length} options'),
-        ],
+      margin: const EdgeInsets.all(8),
+      child: H5RadioGroup(
+        label: config.label,
+        options: config.options,
+        initialValue: config.initialValue,
+        required: config.required,
+        enabled: config.enabled,
+        validator: (value) {
+          if (config.required == true && (value == null || value!.isEmpty)) {
+            return '${config.label} is required';
+          }
+          return null;
+        },
+        onChanged: (value) {
+          // Handle field value change
+        },
       ),
     );
   }
 
   Widget _buildSwitch(config) {
-    // TODO: Implement BReactiveSwitch
     return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            config.label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text('Switch field'),
-        ],
+      margin: const EdgeInsets.all(8),
+      child: H5Switch(
+        label: config.label,
+        initialValue: config.initialValue ?? false,
+        enabled: config.enabled,
+        onChanged: (value) {
+          // Handle field value change
+        },
       ),
     );
   }
 
   Widget _buildDatePicker(config) {
-    // TODO: Implement BReactiveDatePicker
     return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            config.label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text('Date picker field'),
-        ],
+      margin: const EdgeInsets.all(8),
+      child: H5DatePicker(
+        label: config.label,
+        initialValue: config.initialValue,
+        required: config.required,
+        enabled: config.enabled,
+        validator: (value) {
+          if (config.required == true && (value == null || value!.isEmpty)) {
+            return '${config.label} is required';
+          }
+          return null;
+        },
+        onChanged: (value) {
+          // Handle field value change
+        },
       ),
     );
   }
 
   Widget _buildNumberField(config) {
-    // TODO: Implement BReactiveNumberField
     return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            config.label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text('Number field: ${config.min}-${config.max}'),
-        ],
+      margin: const EdgeInsets.all(8),
+      child: H5NumberField(
+        label: config.label,
+        initialValue: config.initialValue?.toString(),
+        required: config.required,
+        enabled: config.enabled,
+        min: config.min?.toDouble(),
+        max: config.max?.toDouble(),
+        step: config.step?.toDouble(),
+        validator: (value) {
+          if (config.required == true && (value == null || value!.isEmpty)) {
+            return '${config.label} is required';
+          }
+          final number = num.tryParse(value ?? '');
+          if (config.min != null && number != null && number < config.min!) {
+            return '${config.label} must be at least ${config.min}';
+          }
+          if (config.max != null && number != null && number > config.max!) {
+            return '${config.label} must be at most ${config.max}';
+          }
+          return null;
+        },
+        onChanged: (value) {
+          // Handle field value change
+        },
       ),
     );
   }
 
   Widget _buildEmail(config) {
-    // TODO: Implement BReactiveEmailField
     return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            config.label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text('Email field'),
-        ],
+      margin: const EdgeInsets.all(8),
+      child: H5EmailField(
+        label: config.label,
+        hintText: config.placeholder,
+        initialValue: config.initialValue,
+        required: config.required,
+        enabled: config.enabled,
+        maxLength: config.maxLength,
+        validator: (value) {
+          if (config.required == true && (value == null || value!.isEmpty)) {
+            return '${config.label} is required';
+          }
+          if (value != null && !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value!)) {
+            return 'Please enter a valid email';
+          }
+          return null;
+        },
+        onChanged: (value) {
+          // Handle field value change
+        },
       ),
     );
   }
 
   Widget _buildPassword(config) {
-    // TODO: Implement BReactivePasswordField
     return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            config.label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text('Password field'),
-        ],
+      margin: const EdgeInsets.all(8),
+      child: H5PasswordField(
+        label: config.label,
+        hintText: config.placeholder,
+        initialValue: config.initialValue,
+        required: config.required,
+        enabled: config.enabled,
+        minLength: config.minLength,
+        maxLength: config.maxLength,
+        validator: (value) {
+          if (config.required == true && (value == null || value!.isEmpty)) {
+            return '${config.label} is required';
+          }
+          if (config.minLength != null && value != null && value!.length < config.minLength!) {
+            return '${config.label} must be at least ${config.minLength} characters';
+          }
+          return null;
+        },
+        onChanged: (value) {
+          // Handle field value change
+        },
       ),
     );
   }
 
   Widget _buildPhone(config) {
-    // TODO: Implement BReactivePhoneField
     return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            config.label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text('Phone field'),
-        ],
+      margin: const EdgeInsets.all(8),
+      child: H5PhoneField(
+        label: config.label,
+        hintText: config.placeholder,
+        initialValue: config.initialValue,
+        required: config.required,
+        enabled: config.enabled,
+        validator: (value) {
+          if (config.required == true && (value == null || value!.isEmpty)) {
+            return '${config.label} is required';
+          }
+          if (value != null && !RegExp(r'^[\d\s\-\(\)\+]+$').hasMatch(value!)) {
+            return 'Please enter a valid phone number';
+          }
+          return null;
+        },
+        onChanged: (value) {
+          // Handle field value change
+        },
       ),
     );
   }
 
   Widget _buildFileUpload(config) {
-    // TODO: Implement BReactiveFileUpload
     return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            config.label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text('File upload field'),
-        ],
+      margin: const EdgeInsets.all(8),
+      child: H5FileUpload(
+        label: config.label,
+        required: config.required,
+        enabled: config.enabled,
+        allowedExtensions: config.allowedExtensions,
+        maxSize: config.maxSize,
+        multiple: config.multiple,
+        validator: (value) {
+          if (config.required == true && (value == null)) {
+            return '${config.label} is required';
+          }
+          return null;
+        },
+        onChanged: (value) {
+          // Handle file upload
+        },
       ),
     );
   }
 
   Widget _buildCustom(config) {
-    // TODO: Implement custom field support
     return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
+      margin: const EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -364,6 +365,10 @@ class BFormGrid extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text('Custom field: ${config.type}'),
+          if (config.properties != null) ...[
+            const SizedBox(height: 4),
+            Text('Properties: ${config.properties}'),
+          ],
         ],
       ),
     );

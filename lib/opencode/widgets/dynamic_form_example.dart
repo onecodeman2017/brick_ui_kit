@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'form_bloc.dart';
 import 'breactive_form.dart';
 import 'form_field_type.dart';
+import 'package:intl/intl.dart';
 
 class DynamicFormExample extends StatefulWidget {
   const DynamicFormExample({super.key});
@@ -38,13 +39,6 @@ class _DynamicFormExampleState extends State<DynamicFormExample> {
           BOption(value: 'other', label: 'Other'),
         ],
         required: true,
-        conditions: [
-          BFormFieldCondition.show(
-            fieldKey: 'category',
-            operator: 'equals',
-            value: 'business',
-          ),
-        ],
       ),
     ];
 
@@ -251,7 +245,7 @@ class _DynamicFormExampleState extends State<DynamicFormExample> {
           ),
           BFormFieldType.checkbox(
             name: 'agreeToTerms',
-            label: 'I agree to the terms and conditions',
+            label: 'I agree to terms and conditions',
             required: true,
           ),
         ];
@@ -374,28 +368,28 @@ class _DynamicFormExampleState extends State<DynamicFormExample> {
               bloc: _formBloc,
               listener: (context, state) {
                 if (state.isDirty) {
-final formData = _formBloc.getFormData();
-                    final formType = formData['formType'];
-                    
-                    if (formType != null && formType != _currentFormType) {
-                      _currentFormType = formType;
-                      _replaceFormBasedOnType(formType!);
-                    }
+                  final formData = _formBloc.getFormData();
+                  final formType = formData['formType'];
+                  
+                  if (formType != null && formType != _currentFormType) {
+                    _currentFormType = formType;
+                    _replaceFormBasedOnType(formType);
+                  }
 
-                    final actionType = formData['actionType'];
-                    if (actionType != null && actionType != _lastActionType) {
-                      _lastActionType = actionType;
-                      if (actionType == 'delete') {
-                        _formBloc.add(BFormClearFieldEvent(fieldKey: 'dependentField'));
-                      }
-                      _formBloc.add(BFormClearFieldEvent(fieldKey: 'targetField'));
+                  final actionType = formData['actionType'];
+                  if (actionType != null && actionType != _lastActionType) {
+                    _lastActionType = actionType;
+                    if (actionType == 'delete') {
+                      _formBloc.add(BFormClearFieldEvent(fieldKey: 'dependentField'));
                     }
+                    _formBloc.add(BFormClearFieldEvent(fieldKey: 'targetField'));
+                  }
 
-                    final userType = formData['userType'];
-                    if (userType != null && userType != _lastUserType) {
-                      _lastUserType = userType;
-                      _formBloc.add(BFormClearFieldEvent(fieldKey: 'toBeCleared'));
-                    }
+                  final userType = formData['userType'];
+                  if (userType != null && userType != _lastUserType) {
+                    _lastUserType = userType;
+                    _formBloc.add(BFormClearFieldEvent(fieldKey: 'toBeCleared'));
+                  }
                 }
               },
               child: BReactiveForm(
@@ -414,7 +408,6 @@ final formData = _formBloc.getFormData();
                 },
               ),
             ),
-          ),
           Container(
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -435,12 +428,14 @@ final formData = _formBloc.getFormData();
                 ElevatedButton(
                   onPressed: () {
                     final formData = _formBloc.getFormData();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Form Data: ${formData.toString()}'),
-                        duration: const Duration(seconds: 3),
-                      ),
-                    );
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Form Data: ${formData.toString()}'),
+                          duration: const Duration(seconds: 3),
+                        ),
+                      );
+                    }
                   },
                   child: const Text('Show Form Data'),
                 ),

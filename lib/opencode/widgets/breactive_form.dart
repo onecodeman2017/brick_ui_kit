@@ -176,7 +176,6 @@ class BFormTextField extends StatelessWidget {
         return CheckboxListTile(
           title: Text(label),
           value: initialValue ?? false,
-          enabled: enabled ?? true,
           onChanged: (value) => onChanged?.call(value?.toString()),
         );
       },
@@ -193,7 +192,6 @@ class BFormTextField extends StatelessWidget {
                 title: Text(option.label),
                 value: option.value,
                 groupValue: initialValue,
-                enabled: enabled ?? true,
                 onChanged: (value) => onChanged?.call(value),
               );
             }),
@@ -204,7 +202,6 @@ class BFormTextField extends StatelessWidget {
         return SwitchListTile(
           title: Text(label),
           value: initialValue ?? false,
-          enabled: enabled ?? true,
           onChanged: (value) => onChanged?.call(value?.toString()),
         );
       },
@@ -218,10 +215,10 @@ class BFormTextField extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             GestureDetector(
-              onTap: (enabled ?? true) != null ? () async {
+              onTap: enabled ?? true ? () async {
                 final date = await showDatePicker(
                   context: context,
-                  initialDate: initialValue != null ? DateTime.tryParse(initialValue!) ?? DateTime.now() : DateTime.now(),
+                  initialDate: initialValue != null ? DateTime.tryParse(initialValue!) : DateTime.now(),
                   firstDate: DateTime(1900),
                   lastDate: DateTime(2100),
                 );
@@ -265,7 +262,7 @@ class BFormTextField extends StatelessWidget {
                 border: const OutlineInputBorder(),
               ),
               onChanged: (value) {
-                final numValue = num.tryParse(value);
+                final numValue = num.tryParse(value ?? '');
                 onChanged?.call(numValue?.toString());
               },
             ),
