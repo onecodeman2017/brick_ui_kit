@@ -28,6 +28,7 @@
 - Use forui theming system for skin/theme management
 - All components must support both internationalization and theming
 - Use freezed for all applicable classes except UI components
+- Place component type definitions within the component file for easy viewing and portability
 
 ### Import Organization
 - Group imports: dart, flutter, third-party, local
@@ -51,6 +52,8 @@
 - All forms must use Form component for validation
 - Wrap pages with BlocBuilder for theme responsiveness
 - Use FTextFormField instead of TextFormField
+- All component names must start with 'B' prefix
+- All custom components created by opencode should be placed in opencode/widgets directory
 
 ### Memory Management
 - Dispose resources properly in dispose methods
@@ -92,6 +95,7 @@
 - 使用 forui 主题系统进行皮肤/主题管理
 - 所有组件必须支持国际化和主题
 - 除 UI 组件外，所有适用的类都使用 freezed
+- 组件类型定义放在当前组件文件中，便于查看和移植
 ### 导入组织
 - 分组导入：dart、flutter、第三方、本地
 - 对于本地文件使用相对导入
@@ -111,6 +115,8 @@
 - 所有表单必须使用 Form 组件进行验证
 - 用 BlocBuilder 包裹页面以实现主题响应性
 - 使用 FTextFormField 替代 TextFormField
+- 所有组件名称必须以 'B' 前缀开头
+- 所有自定义组件创建由 opencode 的应放置在 opencode/widgets 目录
 ### 内存管理
 - 在析构方法中正确释放资源
 - 关闭流、取消计时器、移除监听器
