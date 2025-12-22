@@ -93,6 +93,18 @@ class QReactiveFormField extends StatelessWidget {
   }
 
   /// 构建文本输入框
+  /// 
+  /// 优先使用 forUI 的 FTextField 组件。
+  /// TODO: 当确认 forUI 的 FTextField API 后，应替换为：
+  /// FTextField(
+  ///   controller: control, // 注意：可能需要转换为 forUI 的控制器类型
+  ///   hintText: fieldConfig.placeholder,
+  ///   helperText: fieldConfig.helperText,
+  ///   prefixText: fieldConfig.prefix,
+  ///   suffixText: fieldConfig.suffix,
+  ///   keyboardType: _getKeyboardType(),
+  ///   obscureText: fieldConfig.type == FormFieldType.password,
+  /// )
   Widget _buildTextInput(FormControl control) {
     return ReactiveTextField<dynamic>(
       formControl: control,
@@ -111,6 +123,16 @@ class QReactiveFormField extends StatelessWidget {
   }
 
   /// 构建文本区域
+  /// 
+  /// 优先使用 forUI 的 FTextField 组件。
+  /// TODO: 当确认 forUI 的 FTextField API 后，应替换为：
+  /// FTextField(
+  ///   controller: control, // 注意：可能需要转换为 forUI 的控制器类型
+  ///   maxLines: fieldConfig.maxLines,
+  ///   minLines: fieldConfig.minLines ?? 3,
+  ///   hintText: fieldConfig.placeholder,
+  ///   helperText: fieldConfig.helperText,
+  /// )
   Widget _buildTextArea(FormControl control) {
     return ReactiveTextField<dynamic>(
       formControl: control,
@@ -126,6 +148,14 @@ class QReactiveFormField extends StatelessWidget {
   }
 
   /// 构建下拉选择
+  /// 
+  /// 优先使用 forUI 的 FSelect 组件。
+  /// TODO: 当确认 forUI 的 FSelect API 后，应替换为：
+  /// FSelect(
+  ///   controller: control, // 注意：可能需要转换为 forUI 的控制器类型
+  ///   options: fieldConfig.options,
+  ///   helperText: fieldConfig.helperText,
+  /// )
   Widget _buildSelect(FormControl control) {
     final options = fieldConfig.options ?? [];
     return ReactiveDropdownField<dynamic>(
@@ -148,6 +178,15 @@ class QReactiveFormField extends StatelessWidget {
   }
 
   /// 构建多选择
+  /// 
+  /// 优先使用 forUI 的 FSelect 组件（带多选模式）。
+  /// TODO: 当确认 forUI 的 FSelect API 后，应替换为：
+  /// FSelect(
+  ///   controller: control, // 注意：可能需要转换为 forUI 的控制器类型
+  ///   options: fieldConfig.options,
+  ///   label: fieldConfig.label,
+  ///   isMultiSelect: true,
+  /// )
   Widget _buildMultiSelect(FormControl control) {
     return FButton(
       onPress: () async {
@@ -158,6 +197,13 @@ class QReactiveFormField extends StatelessWidget {
   }
 
   /// 构建日期输入
+  /// 
+  /// 优先使用 forUI 的 FDateField 组件。
+  /// TODO: 当确认 forUI 的 FDateField API 后，应替换为：
+  /// FDateField(
+  ///   controller: control, // 注意：可能需要转换为 forUI 的控制器类型
+  ///   hintText: fieldConfig.placeholder ?? 'YYYY-MM-DD',
+  /// )
   Widget _buildDateInput(BuildContext context, FormControl control) {
     return GestureDetector(
       onTap: () async {
@@ -186,6 +232,12 @@ class QReactiveFormField extends StatelessWidget {
   }
 
   /// 构建时间输入
+  /// 
+  /// 优先使用 forUI 的 FTimeField 组件。
+  /// TODO: 当确认 forUI 的 FTimeField API 后，应替换为：
+  /// FTimeField(
+  ///   controller: control, // 注意：可能需要转换为 forUI 的控制器类型
+  /// )
   Widget _buildTimeInput(BuildContext context, FormControl control) {
     return GestureDetector(
       onTap: () async {
@@ -211,6 +263,12 @@ class QReactiveFormField extends StatelessWidget {
   }
 
   /// 构建日期时间输入
+  /// 
+  /// 优先使用 forUI 的 FDateField 组件。
+  /// TODO: 当确认 forUI 的 FDateField API 后，应替换为：
+  /// FDateField(
+  ///   controller: control, // 注意：可能需要转换为 forUI 的控制器类型
+  /// )
   Widget _buildDateTimeInput(BuildContext context, FormControl control) {
     return GestureDetector(
       onTap: () async {
@@ -238,6 +296,13 @@ class QReactiveFormField extends StatelessWidget {
   }
 
   /// 构建开关
+  /// 
+  /// 优先使用 forUI 的 FSwitch 组件。
+  /// TODO: 当确认 forUI 的 FSwitch API 后，应替换为：
+  /// FSwitch(
+  ///   controller: control as FormControl<bool>, // 注意：可能需要转换为 forUI 的控制器类型
+  ///   label: fieldConfig.label,
+  /// )
   Widget _buildSwitch(FormControl control) {
     return ReactiveCheckboxListTile(
       formControl: control as FormControl<bool>,
@@ -246,6 +311,14 @@ class QReactiveFormField extends StatelessWidget {
   }
 
   /// 构建单选按钮组
+  /// 
+  /// 优先使用 forUI 的 FRadio 组件。
+  /// TODO: 当确认 forUI 的 FRadio API 后，应替换为：
+  /// FRadio(
+  ///   controller: control, // 注意：可能需要转换为 forUI 的控制器类型
+  ///   options: fieldConfig.options,
+  ///   label: fieldConfig.label,
+  /// )
   Widget _buildRadio(FormControl control) {
     final options = fieldConfig.options ?? [];
     return Column(
@@ -267,6 +340,13 @@ class QReactiveFormField extends StatelessWidget {
   }
 
   /// 构建复选框
+  /// 
+  /// 优先使用 forUI 的 FCheckbox 组件。
+  /// TODO: 当确认 forUI 的 FCheckbox API 后，应替换为：
+  /// FCheckbox(
+  ///   controller: control as FormControl<bool>, // 注意：可能需要转换为 forUI 的控制器类型
+  ///   label: fieldConfig.label,
+  /// )
   Widget _buildCheckbox(FormControl control) {
     return ReactiveCheckboxListTile(
       formControl: control as FormControl<bool>,
@@ -275,6 +355,15 @@ class QReactiveFormField extends StatelessWidget {
   }
 
   /// 构建滑块
+  /// 
+  /// 优先使用 forUI 的 FSlider 组件。
+  /// TODO: 当确认 forUI 的 FSlider API 后，应替换为：
+  /// FSlider(
+  ///   controller: control as FormControl<num>, // 注意：可能需要转换为 forUI 的控制器类型
+  ///   min: (fieldConfig.extra?['min'] as num?)?.toDouble() ?? 0,
+  ///   max: (fieldConfig.extra?['max'] as num?)?.toDouble() ?? 100,
+  ///   divisions: fieldConfig.extra?['divisions'] as int?,
+  /// )
   Widget _buildSlider(FormControl control) {
     return ReactiveSlider(
       formControl: control as FormControl<num>,
