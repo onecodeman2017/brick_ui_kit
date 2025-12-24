@@ -2,6 +2,24 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'form_field_type.freezed.dart';
 
+/// 标签位置枚举
+enum LabelPosition {
+  /// 标签在上方（默认）
+  top,
+
+  /// 标签在左侧
+  left,
+
+  /// 无标签
+  none,
+
+  /// 浮动标签 - 左对齐居中（输入后缩小靠左居中于上边框）
+  floatingCenter,
+
+  /// 浮动标签 - 边框下方（输入后缩小，文字在边框下面，与边框上方4px间距）
+  floatingBelow,
+}
+
 /// 表单字段类型枚举
 enum FormFieldType {
   /// 文本输入框
@@ -101,47 +119,6 @@ abstract class FormFieldOption with _$FormFieldOption {
   }) = _FormFieldOption;
 }
 
-/// 栅格配置
-@freezed
-abstract class GridConfig with _$GridConfig {
-  const factory GridConfig({
-    /// 全屏栅格列数（xs）
-    int? xs,
-
-    /// 小屏栅格列数（sm）
-    int? sm,
-
-    /// 中屏栅格列数（md）
-    @Default(24) int? md,
-
-    /// 大屏栅格列数（lg）
-    int? lg,
-
-    /// 超大屏栅格列数（xl）
-    int? xl,
-
-    /// 2K屏栅格列数（xxl）
-    int? xxl,
-  }) = _GridConfig;
-
-  const GridConfig._();
-
-  /// 占据的列数（默认24列栅格）
-  int get defaultSpan => md ?? 24;
-
-  /// 获取响应式类名
-  String get classNames {
-    final classes = <String>[];
-    if (xs != null) classes.add('col-xs-$xs');
-    if (sm != null) classes.add('col-sm-$sm');
-    if (md != null) classes.add('col-md-$md');
-    if (lg != null) classes.add('col-lg-$lg');
-    if (xl != null) classes.add('col-xl-$xl');
-    if (xxl != null) classes.add('col-xxl-$xxl');
-    return classes.isNotEmpty ? classes.join(' ') : 'col-md-24';
-  }
-}
-
 /// 表单字段配置定义接口
 @freezed
 abstract class FormFieldConfig with _$FormFieldConfig {
@@ -154,6 +131,9 @@ abstract class FormFieldConfig with _$FormFieldConfig {
 
     /// 显示标签
     required String label,
+
+    /// 标签位置
+    @Default(LabelPosition.top) LabelPosition labelPosition,
 
     /// 占位符
     String? placeholder,
@@ -179,8 +159,8 @@ abstract class FormFieldConfig with _$FormFieldConfig {
     /// 是否只读
     @Default(false) bool readOnly,
 
-    /// 栅格配置
-    @Default(GridConfig(md: 24)) GridConfig gridConfig,
+    /// Bootstrap 5 类名（栅格、margin、padding、颜色等）
+    @Default('col-md-24') String classNames,
 
     /// 字段说明
     String? description,

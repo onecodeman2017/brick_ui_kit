@@ -27,9 +27,15 @@ class _HomePageState extends State<HomePage> {
   /// 所有可用的组件列表
   final List<ComponentInfo> components = [
     ComponentInfo(
+      id: 'label_position',
+      name: '标签位置演示',
+      description: '5种不同的标签位置效果展示',
+      icon: Icons.label,
+    ),
+    ComponentInfo(
       id: 'reactive_form',
       name: '响应式表单',
-      description: '基于 reactive_forms 的表单系统',
+      description: '基于 forUI 组件的表单系统',
       icon: Icons.assignment,
     ),
     ComponentInfo(

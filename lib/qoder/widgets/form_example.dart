@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'form_field_type.dart';
+import 'form_fields_bloc.dart';
 import 'reactive_form_builder.dart';
 
 /// 表单使用示例
@@ -11,8 +12,8 @@ class FormExample extends StatefulWidget {
 }
 
 class _FormExampleState extends State<FormExample> {
-  /// 定义表单字段
-  late List<FormFieldConfig> formFields;
+  /// FormFields Bloc
+  late FormFieldsBloc _formFieldsBloc;
 
   /// 表单 key - 用于调用表单方法
   final GlobalKey<State<QReactiveFormBuilder>> _formKey =
@@ -21,7 +22,9 @@ class _FormExampleState extends State<FormExample> {
   @override
   void initState() {
     super.initState();
-    formFields = _buildFormFields();
+    _formFieldsBloc = FormFieldsBloc();
+    // 初始化表单字段
+    _formFieldsBloc.add(SetFormFieldsEvent(_buildFormFields()));
   }
 
   /// 构建表单字段配置
@@ -34,7 +37,8 @@ class _FormExampleState extends State<FormExample> {
         label: '用户名',
         placeholder: '请输入用户名',
         required: true,
-        gridConfig: GridConfig(md: 12, lg: 8),
+        classNames: 'col-md-12 col-lg-8 mb-3',
+        labelPosition: LabelPosition.top,
         validations: [
           ValidationRule(
             minLength: 3,
@@ -52,7 +56,8 @@ class _FormExampleState extends State<FormExample> {
         label: '邮箱地址',
         placeholder: '请输入邮箱地址',
         required: true,
-        gridConfig: GridConfig(md: 12, lg: 8),
+        classNames: 'col-md-12 col-lg-8 mb-3',
+        labelPosition: LabelPosition.top,
         validations: [
           ValidationRule(
             pattern: r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
@@ -69,7 +74,8 @@ class _FormExampleState extends State<FormExample> {
         label: '电话号码',
         placeholder: '请输入电话号码',
         required: true,
-        gridConfig: GridConfig(md: 12, lg: 8),
+        classNames: 'col-md-12 col-lg-8 mb-3',
+        labelPosition: LabelPosition.left,
         validations: [
           ValidationRule(
             minLength: 10,
@@ -86,7 +92,8 @@ class _FormExampleState extends State<FormExample> {
         type: FormFieldType.select,
         label: '性别',
         required: true,
-        gridConfig: GridConfig(md: 12, lg: 8),
+        classNames: 'col-md-12 col-lg-8 mb-3',
+        labelPosition: LabelPosition.top,
         options: [
           FormFieldOption(label: '男', value: 'male'),
           FormFieldOption(label: '女', value: 'female'),
@@ -99,8 +106,19 @@ class _FormExampleState extends State<FormExample> {
         name: 'birthDate',
         type: FormFieldType.date,
         label: '出生日期',
-        gridConfig: GridConfig(md: 12, lg: 8),
+        classNames: 'col-md-12 col-lg-8 mb-3',
+        labelPosition: LabelPosition.top,
         prefixIcon: 'calendar',
+      ),
+
+      // 时间字段 - 占6列
+      FormFieldConfig(
+        name: 'time',
+        type: FormFieldType.time,
+        label: '选择时间',
+        classNames: 'col-md-12 col-lg-8 mb-3',
+        labelPosition: LabelPosition.top,
+        prefixIcon: 'clock',
       ),
 
       // 部门字段 - 占6列
@@ -109,7 +127,8 @@ class _FormExampleState extends State<FormExample> {
         type: FormFieldType.select,
         label: '所属部门',
         required: true,
-        gridConfig: GridConfig(md: 12, lg: 8),
+        classNames: 'col-md-12 col-lg-8 mb-3',
+        labelPosition: LabelPosition.top,
         options: [
           FormFieldOption(label: '技术部', value: 'tech'),
           FormFieldOption(label: '市场部', value: 'marketing'),
@@ -118,14 +137,30 @@ class _FormExampleState extends State<FormExample> {
         ],
       ),
 
-      // 密码字段 - 占12列
+      // 工作类型字段 - 单选
+      FormFieldConfig(
+        name: 'jobType',
+        type: FormFieldType.radio,
+        label: '工作类型',
+        required: true,
+        classNames: 'col-md-12 col-lg-8 mb-3',
+        labelPosition: LabelPosition.top,
+        options: [
+          FormFieldOption(label: '全职', value: 'fulltime'),
+          FormFieldOption(label: '兼职', value: 'parttime'),
+          FormFieldOption(label: '实习', value: 'intern'),
+        ],
+      ),
+
+      // 密码字段 - 區12列
       FormFieldConfig(
         name: 'password',
         type: FormFieldType.password,
         label: '密码',
         placeholder: '请输入密码',
         required: true,
-        gridConfig: GridConfig(md: 12, lg: 12),
+        classNames: 'col-md-12 col-lg-12 mb-3',
+        labelPosition: LabelPosition.top,
         validations: [
           ValidationRule(
             minLength: 6,
@@ -135,52 +170,57 @@ class _FormExampleState extends State<FormExample> {
         prefixIcon: 'lock',
       ),
 
-      // 确认密码字段 - 占12列
+      // 确认密码字段 - 區12列
       FormFieldConfig(
         name: 'confirmPassword',
         type: FormFieldType.password,
         label: '确认密码',
         placeholder: '请再次输入密码',
         required: true,
-        gridConfig: GridConfig(md: 12, lg: 12),
+        classNames: 'col-md-12 col-lg-12 mb-3',
+        labelPosition: LabelPosition.top,
         prefixIcon: 'lock',
       ),
 
-      // 个人简介字段 - 占24列
+      // 个人简介字段 - 區24列
       FormFieldConfig(
         name: 'bio',
         type: FormFieldType.textarea,
         label: '个人简介',
         placeholder: '请输入个人简介',
-        gridConfig: GridConfig(md: 24),
+        classNames: 'col-md-24 mb-3',
+        labelPosition: LabelPosition.top,
         maxLines: 4,
         minLines: 3,
       ),
 
-      // 是否同意条款字段 - 占24列
+      // 是否同意条款字段 - 區24列
       FormFieldConfig(
         name: 'agreeTerms',
         type: FormFieldType.checkbox,
-        label: '我同意服务条款和隐私政策',
+        label: '我同愍服务条款和隐私政策',
         required: true,
-        gridConfig: GridConfig(md: 24),
+        classNames: 'col-md-24 mb-3',
+        labelPosition: LabelPosition.none,
       ),
 
-      // 是否订阅邮件 - 占24列
+      // 是否订阅邮件 - 區24列
       FormFieldConfig(
         name: 'subscribeEmail',
         type: FormFieldType.switchField,
         label: '订阅我们的邮件',
         defaultValue: true,
-        gridConfig: GridConfig(md: 24),
+        classNames: 'col-md-24 mb-3',
+        labelPosition: LabelPosition.none,
       ),
 
-      // 兴趣爱好（多选）- 占24列
+      // 兴趣爱好（多选）- 區24列
       FormFieldConfig(
         name: 'interests',
         type: FormFieldType.multiSelect,
         label: '兴趣爱好',
-        gridConfig: GridConfig(md: 24),
+        classNames: 'col-md-24 mb-3',
+        labelPosition: LabelPosition.top,
         options: [
           FormFieldOption(label: '编程', value: 'coding'),
           FormFieldOption(label: '阅读', value: 'reading'),
@@ -221,7 +261,7 @@ class _FormExampleState extends State<FormExample> {
             // 表单组件
             QReactiveFormBuilder(
               key: _formKey,
-              fields: formFields,
+              formFieldsBloc: _formFieldsBloc,
               hooks: QFormHooks(
                 beforeSubmit: () async {
                   print('表单提交前');
@@ -272,5 +312,11 @@ class _FormExampleState extends State<FormExample> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _formFieldsBloc.close();
+    super.dispose();
   }
 }

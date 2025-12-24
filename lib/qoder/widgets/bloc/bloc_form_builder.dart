@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:brick_bootstrap5_plus/brick_bootstrap5_plus.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:brick_bootstrap5_plus/brick_bootstrap5_plus.dart';
 
 import '../form_field_type.dart';
 import '../reactive_form_field.dart';
@@ -81,7 +81,7 @@ class _QBlocFormBuilderState extends State<QBlocFormBuilder>
 
   /// 构建 FormGroup
   FormGroup _buildFormGroup(List<FormFieldConfig> fields) {
-    final controls = <String, FormControl>{};
+    final controls = <String, AbstractControl>{};
 
     for (final field in fields) {
       final validators = <Validator<dynamic>>[];
@@ -206,7 +206,7 @@ class _QBlocFormBuilderState extends State<QBlocFormBuilder>
         // 添加表单字段
         ...state.fields.map(
           (field) => BCol(
-            classNames: field.gridConfig.classNames,
+            classNames: field.classNames,
             child: ReactiveFormConsumer(
               builder: (context, formGroup, child) {
                 if (!field.isVisible(formGroup.value as Map<String, dynamic>)) {
@@ -215,7 +215,7 @@ class _QBlocFormBuilderState extends State<QBlocFormBuilder>
 
                 return QReactiveFormField(
                   fieldConfig: field,
-                  form: _form,
+                  formControlName: field.name,
                   customBuilder: widget.customFieldBuilder,
                 );
               },

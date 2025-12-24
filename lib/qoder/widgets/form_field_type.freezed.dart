@@ -888,396 +888,6 @@ class __$FormFieldOptionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-mixin _$GridConfig {
-  /// 全屏栅格列数（xs）
-  int? get xs;
-
-  /// 小屏栅格列数（sm）
-  int? get sm;
-
-  /// 中屏栅格列数（md）
-  int? get md;
-
-  /// 大屏栅格列数（lg）
-  int? get lg;
-
-  /// 超大屏栅格列数（xl）
-  int? get xl;
-
-  /// 2K屏栅格列数（xxl）
-  int? get xxl;
-
-  /// Create a copy of GridConfig
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $GridConfigCopyWith<GridConfig> get copyWith =>
-      _$GridConfigCopyWithImpl<GridConfig>(this as GridConfig, _$identity);
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is GridConfig &&
-            (identical(other.xs, xs) || other.xs == xs) &&
-            (identical(other.sm, sm) || other.sm == sm) &&
-            (identical(other.md, md) || other.md == md) &&
-            (identical(other.lg, lg) || other.lg == lg) &&
-            (identical(other.xl, xl) || other.xl == xl) &&
-            (identical(other.xxl, xxl) || other.xxl == xxl));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, xs, sm, md, lg, xl, xxl);
-
-  @override
-  String toString() {
-    return 'GridConfig(xs: $xs, sm: $sm, md: $md, lg: $lg, xl: $xl, xxl: $xxl)';
-  }
-}
-
-/// @nodoc
-abstract mixin class $GridConfigCopyWith<$Res> {
-  factory $GridConfigCopyWith(
-          GridConfig value, $Res Function(GridConfig) _then) =
-      _$GridConfigCopyWithImpl;
-  @useResult
-  $Res call({int? xs, int? sm, int? md, int? lg, int? xl, int? xxl});
-}
-
-/// @nodoc
-class _$GridConfigCopyWithImpl<$Res> implements $GridConfigCopyWith<$Res> {
-  _$GridConfigCopyWithImpl(this._self, this._then);
-
-  final GridConfig _self;
-  final $Res Function(GridConfig) _then;
-
-  /// Create a copy of GridConfig
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? xs = freezed,
-    Object? sm = freezed,
-    Object? md = freezed,
-    Object? lg = freezed,
-    Object? xl = freezed,
-    Object? xxl = freezed,
-  }) {
-    return _then(_self.copyWith(
-      xs: freezed == xs
-          ? _self.xs
-          : xs // ignore: cast_nullable_to_non_nullable
-              as int?,
-      sm: freezed == sm
-          ? _self.sm
-          : sm // ignore: cast_nullable_to_non_nullable
-              as int?,
-      md: freezed == md
-          ? _self.md
-          : md // ignore: cast_nullable_to_non_nullable
-              as int?,
-      lg: freezed == lg
-          ? _self.lg
-          : lg // ignore: cast_nullable_to_non_nullable
-              as int?,
-      xl: freezed == xl
-          ? _self.xl
-          : xl // ignore: cast_nullable_to_non_nullable
-              as int?,
-      xxl: freezed == xxl
-          ? _self.xxl
-          : xxl // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
-}
-
-/// Adds pattern-matching-related methods to [GridConfig].
-extension GridConfigPatterns on GridConfig {
-  /// A variant of `map` that fallback to returning `orElse`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
-
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_GridConfig value)? $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _GridConfig() when $default != null:
-        return $default(_that);
-      case _:
-        return orElse();
-    }
-  }
-
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// Callbacks receives the raw object, upcasted.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case final Subclass2 value:
-  ///     return ...;
-  /// }
-  /// ```
-
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_GridConfig value) $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _GridConfig():
-        return $default(_that);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
-
-  /// A variant of `map` that fallback to returning `null`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
-
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_GridConfig value)? $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _GridConfig() when $default != null:
-        return $default(_that);
-      case _:
-        return null;
-    }
-  }
-
-  /// A variant of `when` that fallback to an `orElse` callback.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
-
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(int? xs, int? sm, int? md, int? lg, int? xl, int? xxl)?
-        $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _GridConfig() when $default != null:
-        return $default(
-            _that.xs, _that.sm, _that.md, _that.lg, _that.xl, _that.xxl);
-      case _:
-        return orElse();
-    }
-  }
-
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// As opposed to `map`, this offers destructuring.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case Subclass2(:final field2):
-  ///     return ...;
-  /// }
-  /// ```
-
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(int? xs, int? sm, int? md, int? lg, int? xl, int? xxl)
-        $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _GridConfig():
-        return $default(
-            _that.xs, _that.sm, _that.md, _that.lg, _that.xl, _that.xxl);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
-
-  /// A variant of `when` that fallback to returning `null`
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
-
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(int? xs, int? sm, int? md, int? lg, int? xl, int? xxl)?
-        $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _GridConfig() when $default != null:
-        return $default(
-            _that.xs, _that.sm, _that.md, _that.lg, _that.xl, _that.xxl);
-      case _:
-        return null;
-    }
-  }
-}
-
-/// @nodoc
-
-class _GridConfig extends GridConfig {
-  const _GridConfig(
-      {this.xs, this.sm, this.md = 24, this.lg, this.xl, this.xxl})
-      : super._();
-
-  /// 全屏栅格列数（xs）
-  @override
-  final int? xs;
-
-  /// 小屏栅格列数（sm）
-  @override
-  final int? sm;
-
-  /// 中屏栅格列数（md）
-  @override
-  @JsonKey()
-  final int? md;
-
-  /// 大屏栅格列数（lg）
-  @override
-  final int? lg;
-
-  /// 超大屏栅格列数（xl）
-  @override
-  final int? xl;
-
-  /// 2K屏栅格列数（xxl）
-  @override
-  final int? xxl;
-
-  /// Create a copy of GridConfig
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$GridConfigCopyWith<_GridConfig> get copyWith =>
-      __$GridConfigCopyWithImpl<_GridConfig>(this, _$identity);
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _GridConfig &&
-            (identical(other.xs, xs) || other.xs == xs) &&
-            (identical(other.sm, sm) || other.sm == sm) &&
-            (identical(other.md, md) || other.md == md) &&
-            (identical(other.lg, lg) || other.lg == lg) &&
-            (identical(other.xl, xl) || other.xl == xl) &&
-            (identical(other.xxl, xxl) || other.xxl == xxl));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, xs, sm, md, lg, xl, xxl);
-
-  @override
-  String toString() {
-    return 'GridConfig(xs: $xs, sm: $sm, md: $md, lg: $lg, xl: $xl, xxl: $xxl)';
-  }
-}
-
-/// @nodoc
-abstract mixin class _$GridConfigCopyWith<$Res>
-    implements $GridConfigCopyWith<$Res> {
-  factory _$GridConfigCopyWith(
-          _GridConfig value, $Res Function(_GridConfig) _then) =
-      __$GridConfigCopyWithImpl;
-  @override
-  @useResult
-  $Res call({int? xs, int? sm, int? md, int? lg, int? xl, int? xxl});
-}
-
-/// @nodoc
-class __$GridConfigCopyWithImpl<$Res> implements _$GridConfigCopyWith<$Res> {
-  __$GridConfigCopyWithImpl(this._self, this._then);
-
-  final _GridConfig _self;
-  final $Res Function(_GridConfig) _then;
-
-  /// Create a copy of GridConfig
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? xs = freezed,
-    Object? sm = freezed,
-    Object? md = freezed,
-    Object? lg = freezed,
-    Object? xl = freezed,
-    Object? xxl = freezed,
-  }) {
-    return _then(_GridConfig(
-      xs: freezed == xs
-          ? _self.xs
-          : xs // ignore: cast_nullable_to_non_nullable
-              as int?,
-      sm: freezed == sm
-          ? _self.sm
-          : sm // ignore: cast_nullable_to_non_nullable
-              as int?,
-      md: freezed == md
-          ? _self.md
-          : md // ignore: cast_nullable_to_non_nullable
-              as int?,
-      lg: freezed == lg
-          ? _self.lg
-          : lg // ignore: cast_nullable_to_non_nullable
-              as int?,
-      xl: freezed == xl
-          ? _self.xl
-          : xl // ignore: cast_nullable_to_non_nullable
-              as int?,
-      xxl: freezed == xxl
-          ? _self.xxl
-          : xxl // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
-}
-
-/// @nodoc
 mixin _$FormFieldConfig {
   /// 字段名称（唯一标识）
   String get name;
@@ -1287,6 +897,9 @@ mixin _$FormFieldConfig {
 
   /// 显示标签
   String get label;
+
+  /// 标签位置
+  LabelPosition get labelPosition;
 
   /// 占位符
   String? get placeholder;
@@ -1312,8 +925,8 @@ mixin _$FormFieldConfig {
   /// 是否只读
   bool get readOnly;
 
-  /// 栅格配置
-  GridConfig get gridConfig;
+  /// Bootstrap 5 类名（栅格、margin、padding、颜色等）
+  String get classNames;
 
   /// 字段说明
   String? get description;
@@ -1361,6 +974,8 @@ mixin _$FormFieldConfig {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.label, label) || other.label == label) &&
+            (identical(other.labelPosition, labelPosition) ||
+                other.labelPosition == labelPosition) &&
             (identical(other.placeholder, placeholder) ||
                 other.placeholder == placeholder) &&
             (identical(other.helperText, helperText) ||
@@ -1376,8 +991,8 @@ mixin _$FormFieldConfig {
                 other.disabled == disabled) &&
             (identical(other.readOnly, readOnly) ||
                 other.readOnly == readOnly) &&
-            (identical(other.gridConfig, gridConfig) ||
-                other.gridConfig == gridConfig) &&
+            (identical(other.classNames, classNames) ||
+                other.classNames == classNames) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality().equals(other.extra, extra) &&
@@ -1402,6 +1017,7 @@ mixin _$FormFieldConfig {
         name,
         type,
         label,
+        labelPosition,
         placeholder,
         helperText,
         const DeepCollectionEquality().hash(defaultValue),
@@ -1410,7 +1026,7 @@ mixin _$FormFieldConfig {
         const DeepCollectionEquality().hash(options),
         disabled,
         readOnly,
-        gridConfig,
+        classNames,
         description,
         const DeepCollectionEquality().hash(extra),
         prefixIcon,
@@ -1425,7 +1041,7 @@ mixin _$FormFieldConfig {
 
   @override
   String toString() {
-    return 'FormFieldConfig(name: $name, type: $type, label: $label, placeholder: $placeholder, helperText: $helperText, defaultValue: $defaultValue, required: $required, validations: $validations, options: $options, disabled: $disabled, readOnly: $readOnly, gridConfig: $gridConfig, description: $description, extra: $extra, prefixIcon: $prefixIcon, suffixIcon: $suffixIcon, maxLines: $maxLines, minLines: $minLines, prefix: $prefix, suffix: $suffix, visibleWhen: $visibleWhen, visible: $visible)';
+    return 'FormFieldConfig(name: $name, type: $type, label: $label, labelPosition: $labelPosition, placeholder: $placeholder, helperText: $helperText, defaultValue: $defaultValue, required: $required, validations: $validations, options: $options, disabled: $disabled, readOnly: $readOnly, classNames: $classNames, description: $description, extra: $extra, prefixIcon: $prefixIcon, suffixIcon: $suffixIcon, maxLines: $maxLines, minLines: $minLines, prefix: $prefix, suffix: $suffix, visibleWhen: $visibleWhen, visible: $visible)';
   }
 }
 
@@ -1439,6 +1055,7 @@ abstract mixin class $FormFieldConfigCopyWith<$Res> {
       {String name,
       FormFieldType type,
       String label,
+      LabelPosition labelPosition,
       String? placeholder,
       String? helperText,
       dynamic defaultValue,
@@ -1447,7 +1064,7 @@ abstract mixin class $FormFieldConfigCopyWith<$Res> {
       List<FormFieldOption>? options,
       bool disabled,
       bool readOnly,
-      GridConfig gridConfig,
+      String classNames,
       String? description,
       Map<String, dynamic>? extra,
       String? prefixIcon,
@@ -1458,8 +1075,6 @@ abstract mixin class $FormFieldConfigCopyWith<$Res> {
       String? suffix,
       bool Function(Map<String, dynamic> formValues)? visibleWhen,
       bool visible});
-
-  $GridConfigCopyWith<$Res> get gridConfig;
 }
 
 /// @nodoc
@@ -1478,6 +1093,7 @@ class _$FormFieldConfigCopyWithImpl<$Res>
     Object? name = null,
     Object? type = null,
     Object? label = null,
+    Object? labelPosition = null,
     Object? placeholder = freezed,
     Object? helperText = freezed,
     Object? defaultValue = freezed,
@@ -1486,7 +1102,7 @@ class _$FormFieldConfigCopyWithImpl<$Res>
     Object? options = freezed,
     Object? disabled = null,
     Object? readOnly = null,
-    Object? gridConfig = null,
+    Object? classNames = null,
     Object? description = freezed,
     Object? extra = freezed,
     Object? prefixIcon = freezed,
@@ -1511,6 +1127,10 @@ class _$FormFieldConfigCopyWithImpl<$Res>
           ? _self.label
           : label // ignore: cast_nullable_to_non_nullable
               as String,
+      labelPosition: null == labelPosition
+          ? _self.labelPosition
+          : labelPosition // ignore: cast_nullable_to_non_nullable
+              as LabelPosition,
       placeholder: freezed == placeholder
           ? _self.placeholder
           : placeholder // ignore: cast_nullable_to_non_nullable
@@ -1543,10 +1163,10 @@ class _$FormFieldConfigCopyWithImpl<$Res>
           ? _self.readOnly
           : readOnly // ignore: cast_nullable_to_non_nullable
               as bool,
-      gridConfig: null == gridConfig
-          ? _self.gridConfig
-          : gridConfig // ignore: cast_nullable_to_non_nullable
-              as GridConfig,
+      classNames: null == classNames
+          ? _self.classNames
+          : classNames // ignore: cast_nullable_to_non_nullable
+              as String,
       description: freezed == description
           ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -1588,16 +1208,6 @@ class _$FormFieldConfigCopyWithImpl<$Res>
           : visible // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
-  }
-
-  /// Create a copy of FormFieldConfig
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $GridConfigCopyWith<$Res> get gridConfig {
-    return $GridConfigCopyWith<$Res>(_self.gridConfig, (value) {
-      return _then(_self.copyWith(gridConfig: value));
-    });
   }
 }
 
@@ -1698,6 +1308,7 @@ extension FormFieldConfigPatterns on FormFieldConfig {
             String name,
             FormFieldType type,
             String label,
+            LabelPosition labelPosition,
             String? placeholder,
             String? helperText,
             dynamic defaultValue,
@@ -1706,7 +1317,7 @@ extension FormFieldConfigPatterns on FormFieldConfig {
             List<FormFieldOption>? options,
             bool disabled,
             bool readOnly,
-            GridConfig gridConfig,
+            String classNames,
             String? description,
             Map<String, dynamic>? extra,
             String? prefixIcon,
@@ -1727,6 +1338,7 @@ extension FormFieldConfigPatterns on FormFieldConfig {
             _that.name,
             _that.type,
             _that.label,
+            _that.labelPosition,
             _that.placeholder,
             _that.helperText,
             _that.defaultValue,
@@ -1735,7 +1347,7 @@ extension FormFieldConfigPatterns on FormFieldConfig {
             _that.options,
             _that.disabled,
             _that.readOnly,
-            _that.gridConfig,
+            _that.classNames,
             _that.description,
             _that.extra,
             _that.prefixIcon,
@@ -1770,6 +1382,7 @@ extension FormFieldConfigPatterns on FormFieldConfig {
             String name,
             FormFieldType type,
             String label,
+            LabelPosition labelPosition,
             String? placeholder,
             String? helperText,
             dynamic defaultValue,
@@ -1778,7 +1391,7 @@ extension FormFieldConfigPatterns on FormFieldConfig {
             List<FormFieldOption>? options,
             bool disabled,
             bool readOnly,
-            GridConfig gridConfig,
+            String classNames,
             String? description,
             Map<String, dynamic>? extra,
             String? prefixIcon,
@@ -1798,6 +1411,7 @@ extension FormFieldConfigPatterns on FormFieldConfig {
             _that.name,
             _that.type,
             _that.label,
+            _that.labelPosition,
             _that.placeholder,
             _that.helperText,
             _that.defaultValue,
@@ -1806,7 +1420,7 @@ extension FormFieldConfigPatterns on FormFieldConfig {
             _that.options,
             _that.disabled,
             _that.readOnly,
-            _that.gridConfig,
+            _that.classNames,
             _that.description,
             _that.extra,
             _that.prefixIcon,
@@ -1840,6 +1454,7 @@ extension FormFieldConfigPatterns on FormFieldConfig {
             String name,
             FormFieldType type,
             String label,
+            LabelPosition labelPosition,
             String? placeholder,
             String? helperText,
             dynamic defaultValue,
@@ -1848,7 +1463,7 @@ extension FormFieldConfigPatterns on FormFieldConfig {
             List<FormFieldOption>? options,
             bool disabled,
             bool readOnly,
-            GridConfig gridConfig,
+            String classNames,
             String? description,
             Map<String, dynamic>? extra,
             String? prefixIcon,
@@ -1868,6 +1483,7 @@ extension FormFieldConfigPatterns on FormFieldConfig {
             _that.name,
             _that.type,
             _that.label,
+            _that.labelPosition,
             _that.placeholder,
             _that.helperText,
             _that.defaultValue,
@@ -1876,7 +1492,7 @@ extension FormFieldConfigPatterns on FormFieldConfig {
             _that.options,
             _that.disabled,
             _that.readOnly,
-            _that.gridConfig,
+            _that.classNames,
             _that.description,
             _that.extra,
             _that.prefixIcon,
@@ -1900,6 +1516,7 @@ class _FormFieldConfig extends FormFieldConfig {
       {required this.name,
       required this.type,
       required this.label,
+      this.labelPosition = LabelPosition.top,
       this.placeholder,
       this.helperText,
       this.defaultValue,
@@ -1908,7 +1525,7 @@ class _FormFieldConfig extends FormFieldConfig {
       final List<FormFieldOption>? options,
       this.disabled = false,
       this.readOnly = false,
-      this.gridConfig = const GridConfig(md: 24),
+      this.classNames = 'col-md-24',
       this.description,
       final Map<String, dynamic>? extra,
       this.prefixIcon,
@@ -1935,6 +1552,11 @@ class _FormFieldConfig extends FormFieldConfig {
   /// 显示标签
   @override
   final String label;
+
+  /// 标签位置
+  @override
+  @JsonKey()
+  final LabelPosition labelPosition;
 
   /// 占位符
   @override
@@ -1989,10 +1611,10 @@ class _FormFieldConfig extends FormFieldConfig {
   @JsonKey()
   final bool readOnly;
 
-  /// 栅格配置
+  /// Bootstrap 5 类名（栅格、margin、padding、颜色等）
   @override
   @JsonKey()
-  final GridConfig gridConfig;
+  final String classNames;
 
   /// 字段说明
   @override
@@ -2060,6 +1682,8 @@ class _FormFieldConfig extends FormFieldConfig {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.label, label) || other.label == label) &&
+            (identical(other.labelPosition, labelPosition) ||
+                other.labelPosition == labelPosition) &&
             (identical(other.placeholder, placeholder) ||
                 other.placeholder == placeholder) &&
             (identical(other.helperText, helperText) ||
@@ -2075,8 +1699,8 @@ class _FormFieldConfig extends FormFieldConfig {
                 other.disabled == disabled) &&
             (identical(other.readOnly, readOnly) ||
                 other.readOnly == readOnly) &&
-            (identical(other.gridConfig, gridConfig) ||
-                other.gridConfig == gridConfig) &&
+            (identical(other.classNames, classNames) ||
+                other.classNames == classNames) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality().equals(other._extra, _extra) &&
@@ -2101,6 +1725,7 @@ class _FormFieldConfig extends FormFieldConfig {
         name,
         type,
         label,
+        labelPosition,
         placeholder,
         helperText,
         const DeepCollectionEquality().hash(defaultValue),
@@ -2109,7 +1734,7 @@ class _FormFieldConfig extends FormFieldConfig {
         const DeepCollectionEquality().hash(_options),
         disabled,
         readOnly,
-        gridConfig,
+        classNames,
         description,
         const DeepCollectionEquality().hash(_extra),
         prefixIcon,
@@ -2124,7 +1749,7 @@ class _FormFieldConfig extends FormFieldConfig {
 
   @override
   String toString() {
-    return 'FormFieldConfig(name: $name, type: $type, label: $label, placeholder: $placeholder, helperText: $helperText, defaultValue: $defaultValue, required: $required, validations: $validations, options: $options, disabled: $disabled, readOnly: $readOnly, gridConfig: $gridConfig, description: $description, extra: $extra, prefixIcon: $prefixIcon, suffixIcon: $suffixIcon, maxLines: $maxLines, minLines: $minLines, prefix: $prefix, suffix: $suffix, visibleWhen: $visibleWhen, visible: $visible)';
+    return 'FormFieldConfig(name: $name, type: $type, label: $label, labelPosition: $labelPosition, placeholder: $placeholder, helperText: $helperText, defaultValue: $defaultValue, required: $required, validations: $validations, options: $options, disabled: $disabled, readOnly: $readOnly, classNames: $classNames, description: $description, extra: $extra, prefixIcon: $prefixIcon, suffixIcon: $suffixIcon, maxLines: $maxLines, minLines: $minLines, prefix: $prefix, suffix: $suffix, visibleWhen: $visibleWhen, visible: $visible)';
   }
 }
 
@@ -2140,6 +1765,7 @@ abstract mixin class _$FormFieldConfigCopyWith<$Res>
       {String name,
       FormFieldType type,
       String label,
+      LabelPosition labelPosition,
       String? placeholder,
       String? helperText,
       dynamic defaultValue,
@@ -2148,7 +1774,7 @@ abstract mixin class _$FormFieldConfigCopyWith<$Res>
       List<FormFieldOption>? options,
       bool disabled,
       bool readOnly,
-      GridConfig gridConfig,
+      String classNames,
       String? description,
       Map<String, dynamic>? extra,
       String? prefixIcon,
@@ -2159,9 +1785,6 @@ abstract mixin class _$FormFieldConfigCopyWith<$Res>
       String? suffix,
       bool Function(Map<String, dynamic> formValues)? visibleWhen,
       bool visible});
-
-  @override
-  $GridConfigCopyWith<$Res> get gridConfig;
 }
 
 /// @nodoc
@@ -2180,6 +1803,7 @@ class __$FormFieldConfigCopyWithImpl<$Res>
     Object? name = null,
     Object? type = null,
     Object? label = null,
+    Object? labelPosition = null,
     Object? placeholder = freezed,
     Object? helperText = freezed,
     Object? defaultValue = freezed,
@@ -2188,7 +1812,7 @@ class __$FormFieldConfigCopyWithImpl<$Res>
     Object? options = freezed,
     Object? disabled = null,
     Object? readOnly = null,
-    Object? gridConfig = null,
+    Object? classNames = null,
     Object? description = freezed,
     Object? extra = freezed,
     Object? prefixIcon = freezed,
@@ -2213,6 +1837,10 @@ class __$FormFieldConfigCopyWithImpl<$Res>
           ? _self.label
           : label // ignore: cast_nullable_to_non_nullable
               as String,
+      labelPosition: null == labelPosition
+          ? _self.labelPosition
+          : labelPosition // ignore: cast_nullable_to_non_nullable
+              as LabelPosition,
       placeholder: freezed == placeholder
           ? _self.placeholder
           : placeholder // ignore: cast_nullable_to_non_nullable
@@ -2245,10 +1873,10 @@ class __$FormFieldConfigCopyWithImpl<$Res>
           ? _self.readOnly
           : readOnly // ignore: cast_nullable_to_non_nullable
               as bool,
-      gridConfig: null == gridConfig
-          ? _self.gridConfig
-          : gridConfig // ignore: cast_nullable_to_non_nullable
-              as GridConfig,
+      classNames: null == classNames
+          ? _self.classNames
+          : classNames // ignore: cast_nullable_to_non_nullable
+              as String,
       description: freezed == description
           ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -2290,16 +1918,6 @@ class __$FormFieldConfigCopyWithImpl<$Res>
           : visible // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
-  }
-
-  /// Create a copy of FormFieldConfig
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $GridConfigCopyWith<$Res> get gridConfig {
-    return $GridConfigCopyWith<$Res>(_self.gridConfig, (value) {
-      return _then(_self.copyWith(gridConfig: value));
-    });
   }
 }
 

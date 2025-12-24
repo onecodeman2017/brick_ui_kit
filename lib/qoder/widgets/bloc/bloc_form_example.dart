@@ -25,7 +25,7 @@ class _BlocFormExampleState extends State<BlocFormExample> {
       initialFields: _buildInitialFormFields(),
     );
 
-    // 注册字段变化处理器
+    // 注册字段变化处理�?
     _registerFieldChangeHandlers();
   }
 
@@ -37,7 +37,7 @@ class _BlocFormExampleState extends State<BlocFormExample> {
         type: FormFieldType.select,
         label: '用户类型',
         required: true,
-        gridConfig: GridConfig(md: 12),
+        classNames: 'col-md-12 mb-3',
         options: [
           FormFieldOption(label: '个人用户', value: 'personal'),
           FormFieldOption(label: '企业用户', value: 'company'),
@@ -48,32 +48,32 @@ class _BlocFormExampleState extends State<BlocFormExample> {
         type: FormFieldType.text,
         label: '姓名',
         required: true,
-        gridConfig: GridConfig(md: 12),
+        classNames: 'col-md-12 mb-3',
       ),
       FormFieldConfig(
         name: 'email',
         type: FormFieldType.email,
         label: '邮箱',
         required: true,
-        gridConfig: GridConfig(md: 12),
+        classNames: 'col-md-12 mb-3',
       ),
       FormFieldConfig(
         name: 'phone',
         type: FormFieldType.phone,
         label: '电话',
         required: true,
-        gridConfig: GridConfig(md: 12),
+        classNames: 'col-md-12 mb-3',
       ),
     ];
   }
 
-  /// 注册字段变化处理器
+  /// 注册字段变化处理�?
   void _registerFieldChangeHandlers() {
     // 当用户类型改变时
     _formBloc.registerFieldChangeHandler(
       'userType',
       (newValue, allFormValues) {
-        print('用户类型改变为: $newValue');
+        print('用户类型改变�? $newValue');
 
         if (newValue == 'company') {
           // 添加公司相关字段
@@ -85,25 +85,25 @@ class _BlocFormExampleState extends State<BlocFormExample> {
                   type: FormFieldType.text,
                   label: '公司名称',
                   required: true,
-                  gridConfig: GridConfig(md: 12),
+                  classNames: 'col-md-12 mb-3',
                 ),
                 FormFieldConfig(
                   name: 'businessLicense',
                   type: FormFieldType.text,
-                  label: '营业执照号',
+                  label: '营业执照�?,
                   required: true,
-                  gridConfig: GridConfig(md: 12),
+                  classNames: 'col-md-12 mb-3',
                 ),
                 FormFieldConfig(
                   name: 'industryType',
                   type: FormFieldType.select,
                   label: '行业类型',
                   required: true,
-                  gridConfig: GridConfig(md: 12),
+                  classNames: 'col-md-12 mb-3',
                   options: [
                     FormFieldOption(label: '科技', value: 'tech'),
                     FormFieldOption(label: '金融', value: 'finance'),
-                    FormFieldOption(label: '制造', value: 'manufacture'),
+                    FormFieldOption(label: '制�?, value: 'manufacture'),
                     FormFieldOption(label: '其他', value: 'other'),
                   ],
                 ),
@@ -119,7 +119,7 @@ class _BlocFormExampleState extends State<BlocFormExample> {
             ),
           );
         } else if (newValue == 'personal') {
-          // 清空公司相关字段并隐藏
+          // 清空公司相关字段并隐�?
           _formBloc.add(
             const FormFieldClearedEvent(
               fieldNames: ['companyName', 'businessLicense', 'industryType'],
@@ -141,13 +141,13 @@ class _BlocFormExampleState extends State<BlocFormExample> {
     _formBloc.registerFieldChangeHandler(
       'industryType',
       (newValue, allFormValues) {
-        print('行业类型改变为: $newValue');
-        // 可以根据行业类型动态改变其他字段
+        print('行业类型改变�? $newValue');
+        // 可以根据行业类型动态改变其他字�?
       },
     );
   }
 
-  /// 处理完全替换表单的示例
+  /// 处理完全替换表单的示�?
   void _switchToCompletelyDifferentForm() {
     _formBloc.add(
       FormFieldsUpdateEvent(
@@ -157,14 +157,14 @@ class _BlocFormExampleState extends State<BlocFormExample> {
             type: FormFieldType.text,
             label: '产品名称',
             required: true,
-            gridConfig: GridConfig(md: 24),
+            classNames: 'col-md-24 mb-3',
           ),
           FormFieldConfig(
             name: 'category',
             type: FormFieldType.select,
             label: '产品分类',
             required: true,
-            gridConfig: GridConfig(md: 12),
+            classNames: 'col-md-12 mb-3',
             options: [
               FormFieldOption(label: '电子产品', value: 'electronics'),
               FormFieldOption(label: '食品', value: 'food'),
@@ -176,13 +176,13 @@ class _BlocFormExampleState extends State<BlocFormExample> {
             type: FormFieldType.number,
             label: '价格',
             required: true,
-            gridConfig: GridConfig(md: 12),
+            classNames: 'col-md-12 mb-3',
           ),
           FormFieldConfig(
             name: 'description',
             type: FormFieldType.textarea,
             label: '产品描述',
-            gridConfig: GridConfig(md: 24),
+            classNames: 'col-md-24 mb-3',
             maxLines: 5,
             minLines: 3,
           ),
@@ -214,7 +214,7 @@ class _BlocFormExampleState extends State<BlocFormExample> {
           IconButton(
             icon: const Icon(Icons.sync),
             onPressed: _switchToCompletelyDifferentForm,
-            tooltip: '切换不同的表单',
+            tooltip: '切换不同的表�?,
           ),
         ],
       ),
@@ -239,7 +239,7 @@ class _BlocFormExampleState extends State<BlocFormExample> {
                 },
                 gutter: 3,
               ),
-              // 按钮行 - 由外层处理
+              // 按钮�?- 由外层处�?
               const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -269,7 +269,7 @@ class _BlocFormExampleState extends State<BlocFormExample> {
   }
 }
 
-/// 高级使用示例：动态表单切换
+/// 高级使用示例：动态表单切�?
 class AdvancedBlocFormExample extends StatefulWidget {
   const AdvancedBlocFormExample({Key? key}) : super(key: key);
 
@@ -297,16 +297,16 @@ class _AdvancedBlocFormExampleState extends State<AdvancedBlocFormExample> {
           FormFieldConfig(
             name: 'username',
             type: FormFieldType.text,
-            label: '用户名',
+            label: '用户�?,
             required: true,
-            gridConfig: GridConfig(md: 24),
+            classNames: 'col-md-24 mb-3',
           ),
           FormFieldConfig(
             name: 'password',
             type: FormFieldType.password,
             label: '密码',
             required: true,
-            gridConfig: GridConfig(md: 24),
+            classNames: 'col-md-24 mb-3',
           ),
         ],
       ),
@@ -324,35 +324,35 @@ class _AdvancedBlocFormExampleState extends State<AdvancedBlocFormExample> {
             type: FormFieldType.email,
             label: '邮箱',
             required: true,
-            gridConfig: GridConfig(md: 24),
+            classNames: 'col-md-24 mb-3',
           ),
           FormFieldConfig(
             name: 'username',
             type: FormFieldType.text,
-            label: '用户名',
+            label: '用户�?,
             required: true,
-            gridConfig: GridConfig(md: 24),
+            classNames: 'col-md-24 mb-3',
           ),
           FormFieldConfig(
             name: 'password',
             type: FormFieldType.password,
             label: '密码',
             required: true,
-            gridConfig: GridConfig(md: 24),
+            classNames: 'col-md-24 mb-3',
           ),
           FormFieldConfig(
             name: 'confirmPassword',
             type: FormFieldType.password,
             label: '确认密码',
             required: true,
-            gridConfig: GridConfig(md: 24),
+            classNames: 'col-md-24 mb-3',
           ),
           FormFieldConfig(
             name: 'agreeTerms',
             type: FormFieldType.checkbox,
-            label: '我同意服务条款',
+            label: '我同意服务条�?,
             required: true,
-            gridConfig: GridConfig(md: 24),
+            classNames: 'col-md-24 mb-3',
           ),
         ],
       ),
@@ -389,7 +389,7 @@ class _AdvancedBlocFormExampleState extends State<AdvancedBlocFormExample> {
               QBlocFormBuilder(
                 formBloc: _formBloc,
               ),
-              // 按钮行 - 由外层处理
+              // 按钮�?- 由外层处�?
               const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

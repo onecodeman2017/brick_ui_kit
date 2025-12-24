@@ -9,40 +9,130 @@ class ReactiveFormDemo extends StatefulWidget {
 }
 
 class _ReactiveFormDemoState extends State<ReactiveFormDemo> {
+  late FormFieldsBloc _formFieldsBloc;
   final GlobalKey<State<QReactiveFormBuilder>> _formKey =
       GlobalKey<State<QReactiveFormBuilder>>();
-
-  late List<FormFieldConfig> formFields;
 
   @override
   void initState() {
     super.initState();
-    formFields = [
-      FormFieldConfig(
-        name: 'username',
-        type: FormFieldType.text,
-        label: '用户名',
-        placeholder: '请输入用户名',
-        required: true,
-        gridConfig: GridConfig(md: 12),
-      ),
-      FormFieldConfig(
-        name: 'email',
-        type: FormFieldType.email,
-        label: '邮箱',
-        placeholder: '请输入邮箱',
-        required: true,
-        gridConfig: GridConfig(md: 12),
-      ),
-      FormFieldConfig(
-        name: 'message',
-        type: FormFieldType.textarea,
-        label: '留言',
-        placeholder: '请输入留言',
-        gridConfig: GridConfig(md: 24),
-        maxLines: 4,
-      ),
-    ];
+    _formFieldsBloc = FormFieldsBloc();
+    _formFieldsBloc.add(
+      SetFormFieldsEvent([
+        FormFieldConfig(
+          name: 'username',
+          type: FormFieldType.text,
+          label: '用户名',
+          placeholder: '请输入用户名',
+          required: true,
+          classNames: 'col-md-12 col-xl-8 mb-3',
+        ),
+        FormFieldConfig(
+          name: 'email',
+          type: FormFieldType.email,
+          label: '邮箱',
+          placeholder: '请输入邮箱',
+          required: true,
+          classNames: 'col-md-12 col-xl-8 mb-3',
+        ),
+        FormFieldConfig(
+          name: 'phone',
+          type: FormFieldType.phone,
+          label: '电话',
+          placeholder: '请输入电话号码',
+          required: true,
+          classNames: 'col-md-12 col-xl-8 mb-3',
+        ),
+        FormFieldConfig(
+          name: 'password',
+          type: FormFieldType.password,
+          label: '密码',
+          placeholder: '请输入密码',
+          required: true,
+          classNames: 'col-md-12 col-xl-8 mb-3',
+        ),
+        FormFieldConfig(
+          name: 'birthDate',
+          type: FormFieldType.date,
+          label: '出生日期',
+          classNames: 'col-md-12 col-xl-8 mb-3',
+          prefixIcon: 'calendar',
+        ),
+        FormFieldConfig(
+          name: 'time',
+          type: FormFieldType.time,
+          label: '选择时间',
+          classNames: 'col-md-12 col-xl-8 mb-3',
+          prefixIcon: 'clock',
+        ),
+        FormFieldConfig(
+          name: 'department',
+          type: FormFieldType.select,
+          label: '所属部门',
+          required: true,
+          classNames: 'col-md-12 col-xl-8 mb-3',
+          options: [
+            FormFieldOption(label: '技术部', value: 'tech'),
+            FormFieldOption(label: '市场部', value: 'marketing'),
+            FormFieldOption(label: '销售部', value: 'sales'),
+            FormFieldOption(label: '人事部', value: 'hr'),
+          ],
+        ),
+        FormFieldConfig(
+          name: 'jobType',
+          type: FormFieldType.radio,
+          label: '工作类型',
+          required: true,
+          classNames: 'col-md-12 col-xl-8 mb-3',
+          options: [
+            FormFieldOption(label: '全职', value: 'fulltime'),
+            FormFieldOption(label: '兼职', value: 'parttime'),
+            FormFieldOption(label: '实习', value: 'intern'),
+          ],
+        ),
+        FormFieldConfig(
+          name: 'subscribeEmail',
+          type: FormFieldType.switchField,
+          label: '订阅邮件',
+          defaultValue: true,
+          classNames: 'col-md-12 mb-3',
+        ),
+        FormFieldConfig(
+          name: 'agreeTerms',
+          type: FormFieldType.checkbox,
+          label: '同意服务条款',
+          required: true,
+          classNames: 'col-md-12 mb-3',
+        ),
+        FormFieldConfig(
+          name: 'hobbies',
+          type: FormFieldType.multiSelect,
+          label: '兴趣爱好',
+          classNames: 'col-md-12 mb-3',
+          options: [
+            FormFieldOption(label: '编程', value: 'coding'),
+            FormFieldOption(label: '阅读', value: 'reading'),
+            FormFieldOption(label: '体育', value: 'sports'),
+            FormFieldOption(label: '旅游', value: 'travel'),
+          ],
+        ),
+        FormFieldConfig(
+          name: 'satisfaction',
+          type: FormFieldType.slider,
+          label: '满意度',
+          classNames: 'col-md-12 mb-3',
+          extra: {'min': 0, 'max': 100, 'divisions': 10},
+        ),
+        FormFieldConfig(
+          name: 'message',
+          type: FormFieldType.textarea,
+          label: '留言',
+          placeholder: '请输入留言',
+          classNames: 'col-md-24 mb-3',
+          maxLines: 4,
+        ),
+      ]),
+    );
   }
 
   @override
@@ -56,13 +146,13 @@ class _ReactiveFormDemoState extends State<ReactiveFormDemo> {
         ),
         const SizedBox(height: 16),
         const Text(
-          '这是一个基于 reactive_forms 的表单系统，支持多种字段类型和验证规则。',
+          '这是一个基于 forUI 组件的表单系统，支持多种字段类型和验证规则。',
           style: TextStyle(color: Colors.grey),
         ),
         const SizedBox(height: 24),
         QReactiveFormBuilder(
           key: _formKey,
-          fields: formFields,
+          formFieldsBloc: _formFieldsBloc,
           hooks: QFormHooks(
             afterSubmit: (values) async {
               ScaffoldMessenger.of(
@@ -97,5 +187,11 @@ class _ReactiveFormDemoState extends State<ReactiveFormDemo> {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _formFieldsBloc.close();
+    super.dispose();
   }
 }

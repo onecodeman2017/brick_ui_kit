@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'components/label_position_demo.dart';
 import 'components/reactive_form_demo.dart';
 import 'components/bloc_form_demo.dart';
 import 'components/form_fields_demo.dart';
@@ -20,6 +21,8 @@ class ComponentDetailPage extends StatelessWidget {
   /// 根据组件 ID 返回对应的演示组件
   Widget _buildComponentDemo() {
     switch (componentId) {
+      case 'label_position':
+        return const LabelPositionDemo();
       case 'reactive_form':
         return const ReactiveFormDemo();
       case 'bloc_form':

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:brick_bootstrap5_plus/brick_bootstrap5_plus.dart';
 
 import 'form_field_type.dart';
+import 'form_fields_bloc.dart';
 import 'reactive_form_field.dart';
 
 /// 表单方法接口 - 外层可通过 key 调用这些方法
@@ -58,8 +60,8 @@ class QFormHooks {
 
 /// 响应式表单容器 - 仅渲染表单字段，不包含按钮
 class QReactiveFormBuilder extends StatefulWidget {
-  /// 表单字段配置列表
-  final List<FormFieldConfig> fields;
+  /// FormFields Bloc（必须）
+  final FormFieldsBloc formFieldsBloc;
 
   /// 表单构建函数（用于自定义字段渲染）
   final Widget Function(
@@ -80,7 +82,7 @@ class QReactiveFormBuilder extends StatefulWidget {
 
   const QReactiveFormBuilder({
     Key? key,
-    required this.fields,
+    required this.formFieldsBloc,
     this.formBuilder,
     this.customFieldBuilder,
     this.hooks,
@@ -98,7 +100,7 @@ class _QReactiveFormBuilderState extends State<QReactiveFormBuilder>
   @override
   void initState() {
     super.initState();
-    _form = _buildFormGroup();
+    _form = _buildFormGroup(widget.formFieldsBloc.state.fields);
     // 监听表单值变化，触发 hook
     _form.statusChanged.listen((_) {
       if (widget.hooks?.onFormValueChanged != null) {
@@ -108,10 +110,10 @@ class _QReactiveFormBuilderState extends State<QReactiveFormBuilder>
   }
 
   /// 构建FormGroup
-  FormGroup _buildFormGroup() {
-    final controls = <String, FormControl>{};
+  FormGroup _buildFormGroup(List<FormFieldConfig> fields) {
+    final controls = <String, AbstractControl>{};
 
-    for (final field in widget.fields) {
+    for (final field in fields) {
       final validators = <Validator<dynamic>>[];
 
       // 添加必填验证
@@ -134,11 +136,55 @@ class _QReactiveFormBuilderState extends State<QReactiveFormBuilder>
         }
       }
 
-      controls[field.name] = FormControl<dynamic>(
-        value: field.defaultValue,
-        validators: validators,
-        disabled: field.disabled,
-      );
+      // 根据字段类型初始化控件
+      switch (field.type) {
+        case FormFieldType.select:
+        case FormFieldType.radio:
+        case FormFieldType.text:
+        case FormFieldType.email:
+        case FormFieldType.password:
+        case FormFieldType.phone:
+        case FormFieldType.number:
+        case FormFieldType.textarea:
+        case FormFieldType.date:
+        case FormFieldType.time:
+        case FormFieldType.dateTime:
+          controls[field.name] = FormControl<String>(
+            value: field.defaultValue?.toString(),
+            validators: validators,
+            disabled: field.disabled,
+          );
+          break;
+        case FormFieldType.switchField:
+        case FormFieldType.checkbox:
+          controls[field.name] = FormControl<bool>(
+            value: field.defaultValue as bool?,
+            validators: validators,
+            disabled: field.disabled,
+          );
+          break;
+        case FormFieldType.multiSelect:
+          controls[field.name] = FormControl<List<String>>(
+            value: field.defaultValue as List<String>?,
+            validators: validators,
+            disabled: field.disabled,
+          );
+          break;
+        case FormFieldType.slider:
+          controls[field.name] = FormControl<double>(
+            value: field.defaultValue as double?,
+            validators: validators,
+            disabled: field.disabled,
+          );
+          break;
+        default:
+          controls[field.name] = FormControl<dynamic>(
+            value: field.defaultValue,
+            validators: validators,
+            disabled: field.disabled,
+          );
+          break;
+      }
     }
 
     return FormGroup(controls);
@@ -224,18 +270,29 @@ class _QReactiveFormBuilderState extends State<QReactiveFormBuilder>
 
   @override
   Widget build(BuildContext context) {
-    return ReactiveForm(
-      formGroup: _form,
-      child: Column(
-        children: [
-          // 如果提供了自定义formBuilder，使用它
-          if (widget.formBuilder != null)
-            widget.formBuilder!(context, _form, widget.fields)
-          else
-            // 默认表单布局
-            _buildDefaultFormLayout(context, _form),
-        ],
-      ),
+    return BlocBuilder<FormFieldsBloc, FormFieldsState>(
+      bloc: widget.formFieldsBloc,
+      builder: (context, state) {
+        // 当 fields 变化时重新构建 form
+        if (state.fields.isNotEmpty) {
+          _form.dispose();
+          _form = _buildFormGroup(state.fields);
+        }
+
+        return ReactiveForm(
+          formGroup: _form,
+          child: Column(
+            children: [
+              // 如果提供了自定义formBuilder，使用它
+              if (widget.formBuilder != null)
+                widget.formBuilder!(context, _form, state.fields)
+              else
+                // 默认表单布局
+                _buildDefaultFormLayout(context, _form, state.fields),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -243,14 +300,15 @@ class _QReactiveFormBuilderState extends State<QReactiveFormBuilder>
   Widget _buildDefaultFormLayout(
     BuildContext context,
     FormGroup form,
+    List<FormFieldConfig> fields,
   ) {
     return BRow(
       classNames: 'g-${widget.gutter}',
       children: [
         // 添加表单字段
-        ...widget.fields.map(
+        ...fields.map(
           (field) => BCol(
-            classNames: field.gridConfig.classNames,
+            classNames: field.classNames,
             child: ReactiveFormConsumer(
               builder: (context, formGroup, child) {
                 if (!field.isVisible(formGroup.value as Map<String, dynamic>)) {
@@ -259,7 +317,7 @@ class _QReactiveFormBuilderState extends State<QReactiveFormBuilder>
 
                 return QReactiveFormField(
                   fieldConfig: field,
-                  form: form,
+                  formControlName: field.name,
                   customBuilder: widget.customFieldBuilder,
                 );
               },

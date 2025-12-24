@@ -1,7 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:brick_ui_kit/qoder/widgets/form.dart';
+import 'package:brick_ui_kit/qoder/widgets/bloc/form_bloc_export.dart';
 
-class BlocFormDemo extends StatelessWidget {
+class BlocFormDemo extends StatefulWidget {
   const BlocFormDemo({Key? key}) : super(key: key);
+
+  @override
+  State<BlocFormDemo> createState() => _BlocFormDemoState();
+}
+
+class _BlocFormDemoState extends State<BlocFormDemo> {
+  late FormBloc _formBloc;
+  final GlobalKey<State<QBlocFormBuilder>> _formKey =
+      GlobalKey<State<QBlocFormBuilder>>();
+
+  @override
+  void initState() {
+    super.initState();
+    _formBloc = FormBloc(
+      initialFields: [
+        FormFieldConfig(
+          name: 'username',
+          type: FormFieldType.text,
+          label: '用户名',
+          placeholder: '请输入用户名',
+          required: true,
+          classNames: 'col-md-12 mb-3',
+        ),
+        FormFieldConfig(
+          name: 'email',
+          type: FormFieldType.email,
+          label: '邮箱',
+          placeholder: '请输入邮箱',
+          required: true,
+          classNames: 'col-md-12 mb-3',
+        ),
+        FormFieldConfig(
+          name: 'age',
+          type: FormFieldType.number,
+          label: '年龄',
+          placeholder: '请输入年龄',
+          required: true,
+          classNames: 'col-md-12 mb-3',
+        ),
+        FormFieldConfig(
+          name: 'bio',
+          type: FormFieldType.textarea,
+          label: '个人简介',
+          placeholder: '请输入个人简介',
+          classNames: 'col-md-24 mb-3',
+          maxLines: 3,
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,27 +74,51 @@ class BlocFormDemo extends StatelessWidget {
         Card(
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                const ListTile(
-                  leading: Icon(Icons.info, color: Colors.blue),
-                  title: Text('Bloc 表单特性'),
-                  subtitle: Text('• 动态字段管理\n• 复杂交互处理\n• 状态同步'),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('这是一个 Bloc 表单示例')),
-                    );
-                  },
-                  child: const Text('查看详细文档'),
-                ),
-              ],
+            child: BlocProvider<FormBloc>(
+              create: (context) => _formBloc,
+              child: QBlocFormBuilder(
+                key: _formKey,
+                formBloc: _formBloc,
+                onSubmit: (formValues) async {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('表单提交成功: $formValues')),
+                  );
+                },
+              ),
             ),
           ),
         ),
+        const SizedBox(height: 24),
+        Row(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                final state = _formKey.currentState;
+                if (state is QBlocFormBuilderState) {
+                  (state as QBlocFormBuilderState).submit();
+                }
+              },
+              child: const Text('提交'),
+            ),
+            const SizedBox(width: 12),
+            OutlinedButton(
+              onPressed: () {
+                final state = _formKey.currentState;
+                if (state is QBlocFormBuilderState) {
+                  (state as QBlocFormBuilderState).reset();
+                }
+              },
+              child: const Text('重置'),
+            ),
+          ],
+        ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _formBloc.close();
+    super.dispose();
   }
 }

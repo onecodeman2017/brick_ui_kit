@@ -1,6 +1,9 @@
 /// 表单字段类型定义
 export 'form_field_type.dart';
 
+/// 表单字段 Bloc
+export 'form_fields_bloc.dart';
+
 /// 响应式表单字段
 export 'reactive_form_field.dart';
 
